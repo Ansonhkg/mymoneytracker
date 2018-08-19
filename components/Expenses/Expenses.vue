@@ -4,7 +4,7 @@
             <input class="bg-blue text-white text-center" type="text" v-model="list.title"/>
             <!-- <span>list.title</span> -->
             <span class="float-right bg-blue-dark pl-2 pr-2 pt-1 pb-1 rounded cursor-pointer" @click="$store.commit('addRow', list.id);$root.$emit('save')">Add Row</span>
-            <span class="float-right bg-red-dark pl-2 pr-2 pt-1 pb-1 mr-1 leading-normal rounded cursor-pointer text-xs" @click="$store.commit('removeCategory', list.id);$root.$emit('save'); ">Remove</span>
+            <span class="float-right bg-red-dark pl-2 pr-2 pt-1 pb-1 mr-1 leading-normal rounded cursor-pointer text-xs" @click="$store.commit('removeExpenses', list.id);$root.$emit('save'); ">Remove</span>
         </div>        
         <div class="bg-purple-dark text-left text-white">
             
@@ -61,6 +61,14 @@ export default {
             var income = total / this.income * 100
             return this.$toFixed(income, 2)
         }
+        // bgColor(){
+        //     if(this.list.type === 'expenses'){
+        //         return {'bg-blue' : (this.list.type === 'expenses')}
+        //     }
+        //     if(this.list.type === 'saving'){
+        //         return {'bg-orange' : (this.list.type === 'saving')}
+        //     }
+        // }
 
     }
 }

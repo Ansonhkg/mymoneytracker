@@ -4,39 +4,41 @@ const state = () => {
     return new Vuex.Store({
         state: {
             inputs: {
-                // income: 1352.80,
+                income: 1352.80,
+                saving: 30,
             },
             expenses: [
-                // {
-                //     id: 0,
-                //     title: "Fixed Expenses",
-                //     rows: [
-                //         {
-                //             id: 1,
-                //             description: "Three Mobile",
-                //             value: 16.0,
-                //             isCompleted: false
-                //         },
-                //         {
-                //             id: 2,
-                //             description: "Car Insurance (PC/SMARTDRIVERINS)",
-                //             value: 54.77,
-                //             isCompleted: false
-                //         },
-                //         {
-                //             id: 3,
-                //             description: "Road Tax (DVLA-DE55WBD)",
-                //             value: 10.06,
-                //             isCompleted: false
-                //         },
-                //         {
-                //             id: 4,
-                //             description: "Revolut Premimum Subscription",
-                //             value: 6.99,
-                //             isCompleted: false
-                //         }
-                //     ]
-                // },
+                {
+                    id: 0,
+                    title: "Fixed Expenses",
+                    type: 'expenses',
+                    rows: [
+                        {
+                            id: 1,
+                            description: "Rent",
+                            value: 600,
+                            isCompleted: false
+                        },
+                        // {
+                        //     id: 2,
+                        //     description: "Car Insurance (PC/SMARTDRIVERINS)",
+                        //     value: 54.77,
+                        //     isCompleted: false
+                        // },
+                        // {
+                        //     id: 3,
+                        //     description: "Road Tax (DVLA-DE55WBD)",
+                        //     value: 10.06,
+                        //     isCompleted: false
+                        // },
+                        // {
+                        //     id: 4,
+                        //     description: "Revolut Premimum Subscription",
+                        //     value: 6.99,
+                        //     isCompleted: false
+                        // }
+                    ]
+                },
                 // {
                 //     id: 1,
                 //     title: "Variable Expenses",
@@ -58,7 +60,7 @@ const state = () => {
             ]
         },
         mutations: {
-            addCategory(state) {
+            addExpenses(state) {
                 var id = state.expenses.length
 
                 state.expenses.push({
@@ -67,7 +69,7 @@ const state = () => {
                     rows: []
                 })
             },
-            removeCategory(state, id){
+            removeExpenses(state, id){
                 state.expenses.splice(id, 1)
             },
             addRow(state, id){

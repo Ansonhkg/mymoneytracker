@@ -2,16 +2,20 @@
     <div class="w-full p-1">
         <h2>Inputs</h2>
         <hr>
-        <div class="border-t mt-2 pt-2 md:flex md:items-center mb-4">
-            <div class="md:w-1/6">
-                <label class="block text-grey font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full">
-                    Income After Tax: 
-                </label>
-            </div>
-            <div class="md:w-1/3">
-                <input class="bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-full py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple" type="number" @keyup="$root.$emit('save')" v-model="inputs.income" />
+        <div class="flex">
+            <div class="border-t mt-2 pt-2 md:flex md:items-center mb-4 w-full">
+                <div class="md:w-1/2">
+                    <label class="block text-grey font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full">
+                        Income After Tax:
+                        <div style="font-size:7px;"><a class="underline text-grey-dark" href="https://www.income-tax.co.uk/" target="_blank">https://www.income-tax.co.uk/</a></div>
+                    </label>
+                </div>
+                <div class="md:w-1/3">
+                    <input class="bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-full py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple" type="number" @change="$root.$emit('save')" @keyup="$root.$emit('save')" v-model="inputs.income" />
+                </div>
             </div>
         </div>
+        
         
         <div>
             <h3 class="text-center border-b pb-2">Calculation Results</h3>
@@ -33,14 +37,29 @@
                 <div class="w-1/5">{{ result.occupied | percent }}</div>
             </div>
 
-            <!-- Summary -->
+            <!-- After Expenses -->
             <div class="flex-wrap flex text-center p-1 text-sm border-t border-grey-darker bg-grey-dark">
                 <div class="w-1/5"></div>
-                <div class="w-1/5">{{ summary.total | pound}}</div>
-                <div class="w-1/5">{{ summary.weekly | pound}}</div>
-                <div class="w-1/5">{{ summary.daily | pound}}</div>
-                <div class="w-1/5">{{ summary.occupied | percent}}</div>
+                <div class="w-1/5">{{ afterExpenses.total | pound}}</div>
+                <div class="w-1/5">{{ afterExpenses.weekly | pound}}</div>
+                <div class="w-1/5">{{ afterExpenses.daily | pound}}</div>
+                <div class="w-1/5">{{ afterExpenses.occupied | percent}}</div>
             </div>
+
+            <div class="bg-grey-light p-1 border">
+                <div class="flex-wrap flex text-center p-1 text-sm border-t border-grey-darker leading-loose">
+                - You have got <span class="bg-green font-bold p-1 rounded ml-1 mr-1 text-xs">{{ totalAfterExpenses | pound }}</span> left to spend.
+                </div>
+
+                <div class="flex-wrap flex text-center p-1 text-sm border-t border-grey-darker leading-loose">
+                - After <div class="w-1/6 p-1 leading-loose text-white font-bold"><span class="bg-green-dark rounded p-1"><span class="pr-1"></span><input class="pl-1 w-12 mr-1" type="number" v-model="inputs.saving"/>%</span></div>saving you would have <span class="bg-green font-bold p-1 rounded ml-1 mr-1 text-xs">{{ totalAfterSaving | pound }}</span> left to spend.
+                </div>
+
+                <div class="flex-wrap flex text-center p-1 bg-grey-darker text-xs text-grey-dark">
+                - (You've put <b class="ml-1 mr-1 text-grey-darkest underline">{{ totalSaving | pound}}</b> to your saving).
+                </div>
+            </div>
+
 
         </div>
 
@@ -67,7 +86,7 @@ export default {
       });
       return list;
     },
-    summary() {
+    afterExpenses() {
       if (this.inputs.income <= 0 || this.expenses.length <= 0) return 0;
       var total = this.expenses
         .map(x => x.rows)
@@ -81,6 +100,16 @@ export default {
         daily: this.$toFixed(total / 30, 2),
         occupied: this.$toFixed(total / this.inputs.income * 100, 2)
       };
+    },
+    totalAfterExpenses(){
+        return this.$toFixed(this.inputs.income - this.afterExpenses.total, 2)
+    },
+    totalSaving(){
+        var saving = (this.totalAfterExpenses * (this.inputs.saving/100))
+        return this.$toFixed(saving)
+    },
+    totalAfterSaving(){
+        return this.$toFixed(this.totalAfterExpenses - this.totalSaving)
     }
   }
 };

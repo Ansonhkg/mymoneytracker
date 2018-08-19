@@ -1,6 +1,9 @@
 <template>
   <section>
-    <button class="bg-blue p-2 m-1 rounded text-white font-bold absolute" @click="$store.commit('addCategory');save()">Add Category</button>
+    <div class="absolute">
+      <button class="bg-blue p-2 m-1 rounded text-white font-bold" @click="$store.commit('addExpenses');save()">Add Expenses</button>
+      <!-- <button class="bg-orange p-2 m-1 rounded text-white font-bold" @click="$store.commit('addCategory', 'saving');save()">Add Saving Plan</button> -->
+    </div>
 
     <div class="container text-center border-b p-2 bg-blue-darker text-white text-sm">
       <h1>Monthly Expenses</h1>
