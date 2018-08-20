@@ -9,3 +9,5 @@ https://nuxtjs.org/guide/vuex-store
 
 **This directory is not required, you can delete it if you don't want to use it.**
 
+Useful links:
+- https://github.com/igeligel/vuex-namespaced-module-structure/tree/master/src
