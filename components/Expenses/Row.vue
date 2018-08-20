@@ -1,13 +1,13 @@
 <template>
     <div class="flex-wrap flex text-center bg-purple-lighter text-xs h-full border-b border-purple text-purple-darker">
-        <div class="w-1/6 p-1 leading-loose"><span class="bg-red text-white p-1 rounded cursor-pointer" style="font-size:8px;" @click="$store.commit('removeRow', [listId, row.id]);$root.$emit('save')">Remove</span> {{ listId}}.{{ row.id }}</div>
-        <div class="w-1/6 p-1 leading-loose"><input class="bg-transparent overflow-auto w-full" type="text" v-model="row.description"/></div>
-        <div class="w-1/6 p-1 leading-loose text-white font-bold"><span class="bg-purple rounded p-1"><span class="pr-1">£</span><input @change="$root.$emit('save')" class="pl-1 w-12" type="number" v-model="row.value"/></span></div>
+        <div class="w-1/6 p-1 leading-loose"><span class="bg-red text-white p-1 rounded cursor-pointer" style="font-size:8px;" @click="removeRow();save()">Remove</span> {{ listId}}.{{ row.id }}</div>
+        <div class="w-1/6 p-1 leading-loose"><input class="row-description bg-transparent overflow-auto w-full" type="text" v-model="row.description"/></div>
+        <div class="w-1/6 p-1 leading-loose text-white font-bold"><span class="bg-purple rounded p-1"><span class="pr-1">£</span><input @change="save()" class="row-value pl-1 w-12" type="number" v-model="row.value"/></span></div>
         <div class="w-1/6 p-1 leading-loose">{{ weekly | pound  }}</div>
         <div class="w-1/6 p-1 leading-loose">{{ daily | pound  }}</div>
         <div class="w-1/6 p-1 bg-yellow-dark">
             <label class="relative bg-yellow-darker pb-2 pl-4 pr-3 w-full cursor-pointer leading-normal rounded" :for="id">
-                <input class="hidden absolute opacity-0" type="checkbox" @change="$root.$emit('save')" :id="id" v-model="row.isEnabled">
+                <input class="hidden absolute opacity-0" type="checkbox" @change="save()" :id="id" v-model="row.isEnabled">
                 <span class="checkmark absolute"></span>
             </label>
         </div>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  props: ['listId', "row"],
+  props: ['listId', "row", "store"],
   computed: {
     id(){
         return 'checkbox_' + this.listId + '_' + this.row.id
@@ -27,6 +27,14 @@ export default {
     daily() {
       return this.$toFixed(this.row.value / 30, 2);
     }
+  },
+  methods:{
+      removeRow(){
+        this.store.commit('expenses/REMOVE_ROW', [this.listId, this.row.id])
+      },
+      save(){
+        this.$root.$emit('save')
+      }
   }
 };
 </script>

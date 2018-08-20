@@ -3,8 +3,8 @@
         <div class="bg-blue text-center text-white p-1 shadow-lg">
             <input class="bg-blue text-white text-center" type="text" v-model="list.title"/>
             <!-- <span>list.title</span> -->
-            <span class="float-right bg-blue-dark pl-2 pr-2 pt-1 pb-1 rounded cursor-pointer" @click="$store.commit('addRow', list.id);$root.$emit('save')">Add Row</span>
-            <span class="float-right bg-red-dark pl-2 pr-2 pt-1 pb-1 mr-1 leading-normal rounded cursor-pointer text-xs" @click="$store.commit('removeExpenses', list.id);$root.$emit('save'); ">Remove</span>
+            <span class="float-right bg-blue-dark pl-2 pr-2 pt-1 pb-1 rounded cursor-pointer" @click="store.commit('expenses/ADD_ROW', list.id);save()">Add Row</span>
+            <span class="float-right bg-red-dark pl-2 pr-2 pt-1 pb-1 mr-1 leading-normal rounded cursor-pointer text-xs" @click="store.commit('expenses/REMOVE_EXPENSES', list.id);save(); ">Remove</span>
         </div>        
         <div class="bg-purple-dark text-left text-white">
             
@@ -19,7 +19,7 @@
             </div>
 
             <!-- Rows -->
-            <row v-for="row in list.rows" v-bind:key="row.id" :listId="list.id" :row="row"/>
+            <row v-for="row in list.rows" v-bind:key="row.id" :listId="list.id" :row="row" :store="store"/>
 
             <!-- Summary -->
             <div class="flex-wrap flex text-center p-1 bg-blue-darker text-xs text-red-lighter">
@@ -37,7 +37,7 @@
 import Row from '~/components/Expenses/Row.vue'
 
 export default {
-    props:['id', 'list', 'income'],
+    props:['id', 'list', 'income', 'store'],
     components:{
         Row
     },
@@ -69,7 +69,11 @@ export default {
         //         return {'bg-orange' : (this.list.type === 'saving')}
         //     }
         // }
-
+    },
+    methods:{
+        save(){
+            this.$root.$emit('save')
+        }
     }
 }
 </script>

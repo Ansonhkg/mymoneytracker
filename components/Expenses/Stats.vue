@@ -75,6 +75,7 @@ export default {
   props: ["inputs", "expenses"],
   computed: {
     results() {
+        if(this.inputs.income === undefined) return
       if (this.inputs.income <= 0) return 0;
 
       var list = this.expenses.map(x => {

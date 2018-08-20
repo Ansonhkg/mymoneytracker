@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="absolute">
-      <button class="bg-blue p-2 m-1 rounded text-white font-bold" @click="$store.commit('addExpenses');save()">Add Expenses</button>
+      <button class="bg-blue p-2 m-1 rounded text-white font-bold" @click="$store.commit('expenses/ADD_EXPENSES');save()">Add Expenses</button>
       <!-- <button class="bg-orange p-2 m-1 rounded text-white font-bold" @click="$store.commit('addCategory', 'saving');save()">Add Saving Plan</button> -->
     </div>
 
@@ -13,7 +13,7 @@
     <div class="container flex">
 
       <div class="w-1/2">
-        <expenses v-for="list in expenses" v-bind:key="list.id" :list="list" :id="list.id" :income="inputs.income"/>
+        <expenses v-for="list in expenses" v-bind:key="list.id" :list="list" :id="list.id" :income="inputs.income" :store="$store"/>
       </div>
 
       <div class="w-1/2">
@@ -28,6 +28,7 @@
 <script>
 import Expenses from "~/components/Expenses/Expenses.vue";
 import Stats from "~/components/Expenses/Stats.vue";
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -41,7 +42,7 @@ export default {
 
     // Load local storage if exist
     if(this.$getLocalStorageItem('data')){
-      this.$store.commit('loadState', this.$getLocalStorageItem('data'))
+      this.$store.commit('expenses/LOAD_STATE', this.$getLocalStorageItem('data'))
     }
 
     // Catch emitted events from root
@@ -50,16 +51,15 @@ export default {
     })
   },
   computed: {
-    expenses() {
-      return this.$store.state.expenses;
-    },
-    inputs() {
-      return this.$store.state.inputs;
-    }
+    ...mapGetters({
+      expenses: 'expenses/expenses',
+      inputs: 'expenses/inputs'
+    }),
   },
   methods:{
     save(){
-      this.$setLocalStorageItem('data', this.$store.state)
+      this.$setLocalStorageItem('data', this.$store.state.expenses)
+      console.log("Saved.")
     }
   }
 };

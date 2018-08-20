@@ -1,9 +1,8 @@
 import Vue from 'vue'
-import { callbackify } from 'util';
 
 // This is your plugin object. It can be exported to be used anywhere.
 const Helper = {
-    install(Vue, options){
+    install(vue, options){
         
         // --------- Numbers ---------
         Vue.prototype.$toFixed = (val, fixed) => {
@@ -34,11 +33,18 @@ const Helper = {
                 //     e.preventDefault();
                 //     callback()
                 // }
-                
                 callback()
+
+                // TAB
+                if(e.code == 'Tab'){
+                    var array = Object.values(document.activeElement.classList)
+                    
+                    // console.log(.includes('row-description'))
+                }
+
             };
 
-            window.addEventListener('keydown', (e) => {handler(e, callback)}, true)
+            window.addEventListener('keyup', (e) => {handler(e, callback)}, true)
         }
 
         // --------- Parser ----------
