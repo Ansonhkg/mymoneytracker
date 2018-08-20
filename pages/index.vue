@@ -43,14 +43,14 @@ export default {
     // Load local storage if exist
     if(this.$getLocalStorageItem('data')){
       this.$store.commit('expenses/STATE_LOADED', this.$getLocalStorageItem('data'))
+    }else{
+      this.$store.dispatch('expenses/getExpenses')
     }
 
     // Catch emitted events from root
     this.$root.$on('save', () => {
       this.save()
     })
-
-    this.$store.dispatch('expenses/getExpenses')
   },
   computed: {
     ...mapGetters({
