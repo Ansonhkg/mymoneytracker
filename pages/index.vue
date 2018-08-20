@@ -49,6 +49,8 @@ export default {
     this.$root.$on('save', () => {
       this.save()
     })
+
+    this.$store.dispatch('expenses/getExpenses')
   },
   computed: {
     ...mapGetters({

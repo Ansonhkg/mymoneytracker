@@ -12,6 +12,10 @@ const REMOVE_EXPENSES = (state, id) => {
     state.expenses.splice(id, 1)
 }
 
+const EXPENSES_UPDATED = (state, expenses) => {
+    state.expenses = expenses
+}
+
 const ADD_ROW = (state, id) => {
     var newId = state.expenses[id].rows.length + 1
 
@@ -37,6 +41,7 @@ const LOAD_STATE = (state, data) => {
 export default {
     ADD_EXPENSES,
     REMOVE_EXPENSES,
+    EXPENSES_UPDATED,
     ADD_ROW,
     REMOVE_ROW,
     LOAD_STATE
