@@ -54,4 +54,15 @@ const fetchExpenses = new Promise((resolve) => {
     }, 500)
 })
 
-export { fetchExpenses }
+const fetchInputs = new Promise((resolve) => {
+    setTimeout(() => {
+        resolve(
+            {
+                income: 1352.80,
+                saving: 30,
+            }
+        )
+    }, 500)
+})
+
+export { fetchExpenses, fetchInputs }

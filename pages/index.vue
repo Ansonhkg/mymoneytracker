@@ -45,6 +45,7 @@ export default {
       this.$store.commit('expenses/STATE_LOADED', this.$getLocalStorageItem('data'))
     }else{
       this.$store.dispatch('expenses/getExpenses')
+      this.$store.dispatch('expenses/getInputs')
     }
 
     // Catch emitted events from root
