@@ -109,8 +109,7 @@ export default {
         return this.$toFixed(this.inputs.income - this.afterExpenses.total, 2)
     },
     totalSaving(){
-        var saving = (this.totalAfterExpenses * (this.inputs.saving/100))
-        return this.$toFixed(saving)
+        return this.$toFixed((this.totalAfterExpenses * (this.inputs.saving/100)))
     },
     totalAfterSaving(){
         return this.$toFixed(this.totalAfterExpenses - this.totalSaving)

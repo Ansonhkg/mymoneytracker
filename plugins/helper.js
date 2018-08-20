@@ -7,6 +7,7 @@ const Helper = {
         
         // --------- Numbers ---------
         Vue.prototype.$toFixed = (val, fixed) => {
+            if(isNaN(val)) return
             var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
             return val.toString().match(re)[0];
         },
