@@ -3,8 +3,8 @@
         <div class="bg-blue text-center text-white p-1 shadow-lg">
             <input class="bg-blue text-white text-center" type="text" v-model="list.title"/>
             <!-- <span>list.title</span> -->
-            <span class="float-right bg-blue-dark pl-2 pr-2 pt-1 pb-1 rounded cursor-pointer" @click="store.commit('expenses/ADD_ROW', list.id);save()">Add Row</span>
-            <span class="float-right bg-red-dark pl-2 pr-2 pt-1 pb-1 mr-1 leading-normal rounded cursor-pointer text-xs" @click="store.commit('expenses/REMOVE_EXPENSES', list.id);save(); ">Remove</span>
+            <span class="float-right bg-blue-dark pl-2 pr-2 pt-1 pb-1 rounded cursor-pointer" @click="store.commit('expenses/ROW_ADDED', list.id);save()">Add Row</span>
+            <span class="float-right bg-red-dark pl-2 pr-2 pt-1 pb-1 mr-1 leading-normal rounded cursor-pointer text-xs" @click="store.commit('expenses/EXPENSES_REMOVED', list.id);save(); ">Remove</span>
         </div>        
         <div class="bg-purple-dark text-left text-white">
             

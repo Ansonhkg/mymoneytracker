@@ -30,7 +30,7 @@ export default {
   },
   methods:{
       removeRow(){
-        this.store.commit('expenses/REMOVE_ROW', [this.listId, this.row.id])
+        this.store.commit('expenses/ROW_REMOVED', [this.listId, this.row.id])
       },
       save(){
         this.$root.$emit('save')

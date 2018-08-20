@@ -1,4 +1,4 @@
-const ADD_EXPENSES = (state) => {
+const EXPENSES_ADDED  = (state) => {
     var id = state.expenses.length
 
     state.expenses.push({
@@ -8,7 +8,7 @@ const ADD_EXPENSES = (state) => {
     })
 }
 
-const REMOVE_EXPENSES = (state, id) => {
+const EXPENSES_REMOVED = (state, id) => {
     state.expenses.splice(id, 1)
 }
 
@@ -16,7 +16,7 @@ const EXPENSES_UPDATED = (state, expenses) => {
     state.expenses = expenses
 }
 
-const ADD_ROW = (state, id) => {
+const ROW_ADDED = (state, id) => {
     var newId = state.expenses[id].rows.length + 1
 
     state.expenses[id].rows.push({  
@@ -27,22 +27,22 @@ const ADD_ROW = (state, id) => {
     })
 }
 
-const REMOVE_ROW = (state, data) => {
+const ROW_REMOVED = (state, data) => {
     var listId = data[0]
     var rowId = data[1]
     state.expenses[listId]['rows'].splice(rowId - 1, 1)
 }
 
-const LOAD_STATE = (state, data) => {
+const STATE_LOADED = (state, data) => {
     state.inputs = data.inputs
     state.expenses = data.expenses
 }
 
 export default {
-    ADD_EXPENSES,
-    REMOVE_EXPENSES,
+    EXPENSES_ADDED,
+    EXPENSES_REMOVED,
     EXPENSES_UPDATED,
-    ADD_ROW,
-    REMOVE_ROW,
-    LOAD_STATE
+    ROW_ADDED,
+    ROW_REMOVED,
+    STATE_LOADED,
 }

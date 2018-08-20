@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="absolute">
-      <button class="bg-blue p-2 m-1 rounded text-white font-bold" @click="$store.commit('expenses/ADD_EXPENSES');save()">Add Expenses</button>
+      <button class="bg-blue p-2 m-1 rounded text-white font-bold" @click="$store.commit('expenses/EXPENSES_ADDED');save()">Add Expenses</button>
       <!-- <button class="bg-orange p-2 m-1 rounded text-white font-bold" @click="$store.commit('addCategory', 'saving');save()">Add Saving Plan</button> -->
     </div>
 
@@ -42,7 +42,7 @@ export default {
 
     // Load local storage if exist
     if(this.$getLocalStorageItem('data')){
-      this.$store.commit('expenses/LOAD_STATE', this.$getLocalStorageItem('data'))
+      this.$store.commit('expenses/STATE_LOADED', this.$getLocalStorageItem('data'))
     }
 
     // Catch emitted events from root
