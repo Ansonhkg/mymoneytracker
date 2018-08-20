@@ -7,7 +7,7 @@
         <div class="w-1/6 p-1 leading-loose">{{ daily | pound  }}</div>
         <div class="w-1/6 p-1 bg-yellow-dark">
             <label class="relative bg-yellow-darker pb-2 pl-4 pr-3 w-full cursor-pointer leading-normal rounded" :for="id">
-                <input class="hidden absolute opacity-0" type="checkbox" :id="id" v-model="row.isCompleted">
+                <input class="hidden absolute opacity-0" type="checkbox" @change="$root.$emit('save')" :id="id" v-model="row.isEnabled">
                 <span class="checkmark absolute"></span>
             </label>
         </div>
@@ -22,7 +22,7 @@ export default {
         return 'checkbox_' + this.listId + '_' + this.row.id
     },
     weekly() {
-      return this.$toFixed(this.row.value / 7, 2);
+      return this.$toFixed(this.row.value / 30 * 7, 2);
     },
     daily() {
       return this.$toFixed(this.row.value / 30, 2);

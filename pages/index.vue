@@ -21,7 +21,6 @@
       </div>
 
     </div>
-
   </section>
 
 </template>
@@ -36,24 +35,16 @@ export default {
     Stats
   },
   mounted() {
-    // Monitor all key press events
-    window.addEventListener("keydown", e => {
-      if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
-        this.save()
-      e.preventDefault();
-      // Process the event here (such as click on submit button)
-    }
-    },false);
 
-    window.addEventListener("keydown", e => {
-      this.save()
-    },false);
+    // Listen to events
+    this.$mountKeyboardEventsHandler(this.save)
 
-    if(localStorage.getItem('data')){
-      console.warn("Loaded data from local storage.")
-      this.$store.commit('loadState', JSON.parse(localStorage.getItem('data')))
+    // Load local storage if exist
+    if(this.$getLocalStorageItem('data')){
+      this.$store.commit('loadState', this.$getLocalStorageItem('data'))
     }
 
+    // Catch emitted events from root
     this.$root.$on('save', () => {
       this.save()
     })
@@ -68,8 +59,7 @@ export default {
   },
   methods:{
     save(){
-      localStorage.setItem('data', JSON.stringify(this.$store.state))
-      console.log("SAVED!")
+      this.$setLocalStorageItem('data', this.$store.state)
     }
   }
 };

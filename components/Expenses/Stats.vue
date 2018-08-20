@@ -48,16 +48,20 @@
 
             <div class="bg-grey-light p-1 border">
                 <div class="flex-wrap flex text-center p-1 text-sm border-t border-grey-darker leading-loose">
-                - You have got <span class="bg-green font-bold p-1 rounded ml-1 mr-1 text-xs">{{ totalAfterExpenses | pound }}</span> left to spend.
+                - You have got <span class="bg-green font-bold p-1 rounded ml-1 mr-1 text-xs">{{ totalAfterExpenses | pound }}</span> left to spend after expenses.
                 </div>
 
                 <div class="flex-wrap flex text-center p-1 text-sm border-t border-grey-darker leading-loose">
-                - After <div class="w-1/6 p-1 leading-loose text-white font-bold"><span class="bg-green-dark rounded p-1"><span class="pr-1"></span><input class="pl-1 w-12 mr-1" type="number" v-model="inputs.saving"/>%</span></div>saving you would have <span class="bg-green font-bold p-1 rounded ml-1 mr-1 text-xs">{{ totalAfterSaving | pound }}</span> left to spend.
+                - After <div class="w-1/6 p-1 leading-loose text-white font-bold"><span class="bg-green-dark rounded p-1"><span class="pr-1"></span><input class="pl-1 w-12 mr-1" type="number" v-model="inputs.saving"/>% </span></div>(based on above) saving you would have <span class="bg-green font-bold p-1 rounded ml-1 mr-1 text-xs">{{ totalAfterSaving | pound }}</span> left to spend.
                 </div>
 
                 <div class="flex-wrap flex text-center p-1 bg-grey-darker text-xs text-grey-dark">
-                - (You've put <b class="ml-1 mr-1 text-grey-darkest underline">{{ totalSaving | pound}}</b> to your saving).
+                - (You've put <b class="ml-1 mr-1 text-red-darkest underline">{{ totalSaving | pound}}</b> to your saving).
                 </div>
+
+                <!-- <div class="flex-wrap flex text-center p-1 text-sm border-t border-grey-darker leading-loose">
+                - And you allow yourself to splash <div class="w-1/6 p-1 leading-loose text-white font-bold"><span class="bg-green-dark rounded p-1"><span class="pr-1"></span><input class="pl-1 w-12 mr-1" type="number" v-model="inputs.saving"/>% </span></div>(based on above) saving you would have <span class="bg-green font-bold p-1 rounded ml-1 mr-1 text-xs"></span> left to spend.
+                </div> -->
             </div>
 
 
@@ -74,7 +78,7 @@ export default {
       if (this.inputs.income <= 0) return 0;
 
       var list = this.expenses.map(x => {
-        var total = x.rows.map(x => this.$number(x.value)).reduce((x, y) => x + y, 0);
+        var total = x.rows.map(x => (x.isEnabled) ? this.$number(x.value) : 0).reduce((x, y) => x + y, 0);
 
         return {
           title: x.title,
@@ -91,12 +95,12 @@ export default {
       var total = this.expenses
         .map(x => x.rows)
         .reduce((acc, val) => acc.concat(val))
-        .map(x => x.value <= 0 ? 0 : this.$number(x.value))
+        .map(x => x.value <= 0 ? 0 : (x.isEnabled) ? this.$number(x.value) : 0)
         .reduce((x, y) => x + y, 0);
 
       return {
         total: this.$toFixed(total, 2),
-        weekly: this.$toFixed(total / 7, 2),
+        weekly: this.$toFixed(total / 30 * 7, 2),
         daily: this.$toFixed(total / 30, 2),
         occupied: this.$toFixed(total / this.inputs.income * 100, 2)
       };

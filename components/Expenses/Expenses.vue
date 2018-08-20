@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col w-full p-1">
-        <div class="bg-blue text-center text-white p-1">
+        <div class="bg-blue text-center text-white p-1 shadow-lg">
             <input class="bg-blue text-white text-center" type="text" v-model="list.title"/>
             <!-- <span>list.title</span> -->
             <span class="float-right bg-blue-dark pl-2 pr-2 pt-1 pb-1 rounded cursor-pointer" @click="$store.commit('addRow', list.id);$root.$emit('save')">Add Row</span>
@@ -15,7 +15,7 @@
                 <div class="w-1/6">Mothly</div>
                 <div class="w-1/6">Weekly</div>
                 <div class="w-1/6">Daily</div>
-                <div class="w-1/6">Completed</div>
+                <div class="w-1/6">Enabled</div>
             </div>
 
             <!-- Rows -->
@@ -47,11 +47,11 @@ export default {
             return this.$toFixed(total, 2)
         },
         weeklyTotal: function(){
-            var total = this.list.rows.map((x) => this.$number(x.value) / 7).reduce((x, y) => x + y, 0)
+            var total = this.list.rows.map((x) => this.$number(x.value / 30 * 7)).reduce((x, y) => x + y, 0)
             return this.$toFixed(total, 2)
         },
         dailyTotal: function(){
-            var total = this.list.rows.map((x) => this.$number(x.value) / 30).reduce((x, y) => x + y, 0)
+            var total = this.list.rows.map((x) => this.$number(x.value / 30)).reduce((x, y) => x + y, 0)
             return this.$toFixed(total, 2)
         },
         percentage: function(){
