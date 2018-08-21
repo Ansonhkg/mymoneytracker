@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col w-full p-1">
+    <div class="flex flex-col w-full w-1/2 p-1">
         <div class="bg-blue text-center text-white p-1 shadow-lg">
             <input class="bg-blue text-white text-center" type="text" v-model="list.title"/>
             <!-- <span>list.title</span> -->

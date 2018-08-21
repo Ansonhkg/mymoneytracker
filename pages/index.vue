@@ -10,13 +10,13 @@
     </div>
 
 
-    <div class="container flex">
+    <div class="container flex-row md:flex">
 
-      <div class="w-1/2">
+      <div class="w-full">
         <expenses v-for="list in expenses" v-bind:key="list.id" :list="list" :id="list.id" :income="inputs.income" :store="$store"/>
       </div>
 
-      <div class="w-1/2">
+      <div class="w-full">
         <stats :inputs="inputs" :expenses="expenses"/>
       </div>
 
