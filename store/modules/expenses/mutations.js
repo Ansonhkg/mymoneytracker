@@ -9,7 +9,9 @@ const EXPENSES_ADDED  = (state) => {
 }
 
 const EXPENSES_REMOVED = (state, id) => {
-    state.expenses.splice(id, 1)
+    var index = state.expenses.map((x) => x.id).indexOf(id)
+
+    state.expenses.splice(index, 1)
 }
 
 const EXPENSES_UPDATED = (state, expenses) => {
@@ -34,7 +36,10 @@ const ROW_ADDED = (state, id) => {
 const ROW_REMOVED = (state, data) => {
     var listId = data[0]
     var rowId = data[1]
-    state.expenses[listId]['rows'].splice(rowId - 1, 1)
+
+    var index = state.expenses[listId]['rows'].map((x) => x.id).indexOf(rowId)
+        
+    state.expenses[listId]['rows'].splice(index, 1)
 }
 
 const STATE_LOADED = (state, data) => {
