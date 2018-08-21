@@ -72,13 +72,17 @@
 
 <script>
 export default {
+  name: "Stats",
+  
   props: ["inputs", "expenses"],
   computed: {
     results() {
       if (this.inputs.income <= 0) return 0;
 
       var list = this.expenses.map(x => {
-        var total = x.rows.map(x => (x.isEnabled) ? this.$number(x.value) : 0).reduce((x, y) => x + y, 0);
+        var total = x.rows
+          .map(x => (x.isEnabled ? this.$number(x.value) : 0))
+          .reduce((x, y) => x + y, 0);
 
         return {
           title: x.title,
@@ -95,7 +99,7 @@ export default {
       var total = this.expenses
         .map(x => x.rows)
         .reduce((acc, val) => acc.concat(val))
-        .map(x => x.value <= 0 ? 0 : (x.isEnabled) ? this.$number(x.value) : 0)
+        .map(x => (x.value <= 0 ? 0 : x.isEnabled ? this.$number(x.value) : 0))
         .reduce((x, y) => x + y, 0);
 
       return {
@@ -105,14 +109,16 @@ export default {
         occupied: this.$toFixed(total / this.inputs.income * 100, 2)
       };
     },
-    totalAfterExpenses(){
-        return this.$toFixed(this.inputs.income - this.afterExpenses.total, 2)
+    totalAfterExpenses() {
+      return this.$toFixed(this.inputs.income - this.afterExpenses.total, 2);
     },
-    totalSaving(){
-        return this.$toFixed((this.totalAfterExpenses * (this.inputs.saving/100)))
+    totalSaving() {
+      return this.$toFixed(
+        this.totalAfterExpenses * (this.inputs.saving / 100)
+      );
     },
-    totalAfterSaving(){
-        return this.$toFixed(this.totalAfterExpenses - this.totalSaving)
+    totalAfterSaving() {
+      return this.$toFixed(this.totalAfterExpenses - this.totalSaving);
     }
   }
 };
