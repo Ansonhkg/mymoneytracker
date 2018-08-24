@@ -1,6 +1,8 @@
 <template>
   <section>
     <div class="absolute">
+      <button style="font-size:10px;" class="bg-orange-dark p-2 m-1 rounded text-white font-bold text-xs" @click="print()">Save</button>
+      <!-- <button style="font-size:10px;" class="bg-orange-dark p-2 m-1 rounded text-white font-bold text-xs" @click="load()">Load</button> -->
       <button class="bg-blue p-2 m-1 rounded text-white font-bold" @click="$store.commit('expenses/EXPENSES_ADDED');save()">Add Expenses</button>
       <!-- <button class="bg-orange p-2 m-1 rounded text-white font-bold" @click="$store.commit('addCategory', 'saving');save()">Add Saving Plan</button> -->
     </div>
@@ -63,6 +65,19 @@ export default {
     save(){
       this.$setLocalStorageItem('data', this.$store.state.expenses)
       console.log("Saved.")
+    },
+    print(){
+      const data = JSON.stringify(this.$store.state.expenses)
+      const blob = new Blob([data], {type: 'text/plain'})
+            var today = new Date();
+      const e = document.createEvent('MouseEvents'),
+
+      a = document.createElement('a');
+      a.download = today.getDate() + '_' + (today.getMonth() + 1) + '_' + today.getFullYear() + "_mymoneytracker" + ".json";
+      a.href = window.URL.createObjectURL(blob);
+      a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+      e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      a.dispatchEvent(e)
     }
   }
 };
