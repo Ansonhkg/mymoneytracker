@@ -43,21 +43,21 @@ export default {
     },
     computed: {
         expenseTotal: function () {
-            var total = this.list.rows.map((x) => this.$number(x.value)).reduce((x, y) => x + y, 0)
+            var total = this.list.rows.map(x => (x.isEnabled ? this.$number(x.value) : 0)).reduce((x, y) => x + y, 0)
             return this.$toFixed(total, 2)
         },
         weeklyTotal: function(){
-            var total = this.list.rows.map((x) => this.$number(x.value / 30 * 7)).reduce((x, y) => x + y, 0)
+            var total = this.list.rows.map(x => (x.isEnabled ? this.$number(x.value) : 0) / 30 * 7).reduce((x, y) => x + y, 0)
             return this.$toFixed(total, 2)
         },
         dailyTotal: function(){
-            var total = this.list.rows.map((x) => this.$number(x.value / 30)).reduce((x, y) => x + y, 0)
+            var total = this.list.rows.map(x => (x.isEnabled ? this.$number(x.value) : 0) / 30).reduce((x, y) => x + y, 0)
             return this.$toFixed(total, 2)
         },
         percentage: function(){
             if(this.income <= 0) return 0
 
-            var total = this.list.rows.map((x) => this.$number(x.value)).reduce((x, y) => x + y, 0)
+            var total = this.list.rows.map(x => (x.isEnabled ? this.$number(x.value) : 0)).reduce((x, y) => x + y, 0)
             var income = total / this.income * 100
             return this.$toFixed(income, 2)
         }

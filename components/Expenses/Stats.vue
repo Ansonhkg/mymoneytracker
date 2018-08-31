@@ -14,8 +14,7 @@
                     <input class="bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-full py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-purple" type="number" @change="$root.$emit('save')" @keyup="$root.$emit('save')" v-model="inputs.income" />
                 </div>
             </div>
-        </div>
-        
+        </div>        
         
         <div>
             <h3 class="text-center border-b pb-2">Calculation Results</h3>
@@ -93,6 +92,11 @@ export default {
         };
       });
       return list;
+    },
+    incomeAfterSaving(){
+      var saving = this.inputs.income * (30 / 100)
+      var totalAfterSaving = this.$toFixed(this.inputs.income - saving, 2)
+      return totalAfterSaving
     },
     afterExpenses() {
       if (this.inputs.income <= 0 || this.expenses.length <= 0) return 0;

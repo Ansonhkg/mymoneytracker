@@ -10,6 +10,21 @@ const Helper = {
             var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
             return val.toString().match(re)[0];
         },
+
+        // ---------- Downloadable ----------
+        Vue.prototype.$downloadJsonAsFile = (jsonObject, filename) => {
+            const data = JSON.stringify(jsonObject)
+            const blob = new Blob([data], {type: 'text/plain'})
+                  var today = new Date();
+            const e = document.createEvent('MouseEvents'),
+      
+            a = document.createElement('a');
+            a.download = today.getDate() + '_' + (today.getMonth() + 1) + '_' + today.getFullYear() + "_" + filename + ".json";
+            a.href = window.URL.createObjectURL(blob);
+            a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+            e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            a.dispatchEvent(e)
+        }
         
         // --------- Local Storage ---------
         Vue.prototype.$getLocalStorageItem = (data) => {
