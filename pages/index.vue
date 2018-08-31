@@ -3,12 +3,12 @@
     <div class="absolute">
       <button style="font-size:10px;" class="bg-orange-dark p-2 m-1 rounded text-white font-bold text-xs" @click="$downloadJsonAsFile($store.state.expenses, 'mymoneytracker');">Save</button>
       <!-- <button style="font-size:10px;" class="bg-orange-dark p-2 m-1 rounded text-white font-bold text-xs" @click="load()">Load</button> -->
-      <button class="bg-blue p-2 m-1 rounded text-white font-bold" @click="$store.commit('expenses/EXPENSES_ADDED');save()">Add Expenses</button>
+      <button class="bg-blue p-2 pt-2 m-1 rounded text-white font-bold" @click="$store.commit('expenses/EXPENSES_ADDED');save()">Add Expenses</button>
       <!-- <button class="bg-orange p-2 m-1 rounded text-white font-bold" @click="$store.commit('addCategory', 'saving');save()">Add Saving Plan</button> -->
     </div>
 
-    <div class="container text-center border-b p-2 bg-blue-darker text-white text-sm">
-      <h1>Monthly Expenses</h1>
+    <div class="container border-b p-2 bg-blue-darker text-white text-sm block p-4 sm:p-2">
+      <h1 class="text-xs text-right sm:text-2xl">Expenses Calculator</h1>
     </div>
 
 

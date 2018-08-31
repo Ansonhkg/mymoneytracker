@@ -1,33 +1,51 @@
 <template>
-    <div class="flex flex-col w-full w-1/2 p-1">
-        <div class="bg-blue text-center text-white p-1 shadow-lg">
-            <input class="bg-blue text-white text-center" type="text" v-model="list.title"/>
-            <!-- <span>list.title</span> -->
-            <span class="float-right bg-blue-dark pl-2 pr-2 pt-1 pb-1 rounded cursor-pointer" @click="store.commit('expenses/ROW_ADDED', list.id);save()">Add Row</span>
-            <span class="float-right bg-red-dark pl-2 pr-2 pt-1 pb-1 mr-1 leading-normal rounded cursor-pointer text-xs" @click="store.commit('expenses/EXPENSES_REMOVED', list.id);save(); ">Remove</span>
-        </div>        
-        <div class="bg-purple-dark text-left text-white">
-            
-            <!-- Title -->
-            <div class="flex-wrap flex text-center p-1">
-                <div class="w-1/6">#</div>
-                <div class="w-1/6">Description</div>
-                <div class="w-1/6">Mothly</div>
-                <div class="w-1/6">Weekly</div>
-                <div class="w-1/6">Daily</div>
-                <div class="w-1/6">Enabled</div>
-            </div>
+    <div class="flex flex-col w-full w-1/2">
 
+        <div class="desktop hidden sm:block p-1">
+
+            <div class="bg-blue text-center text-white p-1 shadow-lg hidden sm:block">
+                <input class="bg-blue text-white text-center" type="text" v-model="list.title"/>
+                <!-- <span>list.title</span> -->
+                <span class="float-right bg-blue-dark pl-2 pr-2 pt-1 pb-1 rounded cursor-pointer" @click="store.commit('expenses/ROW_ADDED', list.id);save()">Add Row</span>
+                <span class="float-right bg-red-dark pl-2 pr-2 pt-1 pb-1 mr-1 leading-normal rounded cursor-pointer text-xs" @click="store.commit('expenses/EXPENSES_REMOVED', list.id);save(); ">Remove</span>
+            </div>        
+            
+            <div class="bg-purple-dark text-left text-white">
+                <!-- Title -->
+                <div class="flex-wrap flex text-center p-1">
+                    <div class="w-1/6">#</div>
+                    <div class="w-1/6 ">Description</div>
+                    <div class="w-1/6">Mothly</div>
+                    <div class="w-1/6">Weekly</div>
+                    <div class="w-1/6">Daily</div>
+                    <div class="w-1/6">Enabled</div>
+                </div>
+
+                <!-- Rows -->
+                <row v-for="row in list.rows" v-bind:key="row.id" :listId="list.id" :row="row" :store="store"/>
+
+                <!-- Summary -->
+                <div class="flex-wrap flex text-center p-1 bg-blue-darker text-xs text-red-lighter">
+                    <div class="w-1/3 text-right text-red-light font-bold">Total</div>
+                    <div class="w-1/6 text-red-light font-bold">{{ expenseTotal | pound }}</div>
+                    <div class="w-1/6">{{ weeklyTotal | pound }}</div>
+                    <div class="w-1/6">{{ dailyTotal | pound }}</div>
+                    <div class="w-1/6"><b>{{ percentage | percent }}</b>/100%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile block sm:hidden">
+            <div class="bg-blue relative">
+                <div class="flex pt-1">
+                    <input class="bg-transparent w-full text-center font-bold text-lg" type="text" v-model="list.title"/>
+                </div>
+                <div class="p-1 bg-blue-darker text-white mb-1" @click="store.commit('expenses/ROW_ADDED', list.id);save()">Add New Row</div>
+                <div class="absolute pin-t pin-r p-1 font-bold pl-2 pr-2 bg-red-dark mr-1 mt-1 text-xs rounded text-white" @click="store.commit('expenses/EXPENSES_REMOVED', list.id);save(); ">X</div>
+            
             <!-- Rows -->
             <row v-for="row in list.rows" v-bind:key="row.id" :listId="list.id" :row="row" :store="store"/>
 
-            <!-- Summary -->
-            <div class="flex-wrap flex text-center p-1 bg-blue-darker text-xs text-red-lighter">
-                <div class="w-1/3 text-right text-red-light font-bold">Total</div>
-                <div class="w-1/6 text-red-light font-bold">{{ expenseTotal | pound }}</div>
-                <div class="w-1/6">{{ weeklyTotal | pound }}</div>
-                <div class="w-1/6">{{ dailyTotal | pound }}</div>
-                <div class="w-1/6"><b>{{ percentage | percent }}</b>/100%</div>
             </div>
         </div>
     </div>
