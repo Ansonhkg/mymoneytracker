@@ -1,4 +1,9 @@
-const inputs = state => state.inputs;
+const inputs = state => {
+  // if(state.inputs.income <= 0 || state.inputs.income === undefined){
+  //   state.inputs.income = 0
+  // }
+  return state.inputs;
+}
 
 const expenses = state => state.expenses;
 

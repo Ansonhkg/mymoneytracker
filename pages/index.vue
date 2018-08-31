@@ -59,7 +59,7 @@ export default {
     ...mapGetters({
       expenses: 'expenses/expenses',
       inputs: 'expenses/inputs'
-    }),
+    })
   },
   methods:{
     save(){

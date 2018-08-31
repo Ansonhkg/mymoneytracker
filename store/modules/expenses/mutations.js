@@ -22,6 +22,10 @@ const INPUTS_UPDATED = (state, inputs) => {
     state.inputs = inputs
 }
 
+const INCOME_UPDATED = (state, newValue) => {
+    state.inputs.income = newValue
+}
+
 const ROW_ADDED = (state, id) => {
     var newId = state.expenses[id].rows.length + 1
 
@@ -52,6 +56,7 @@ export default {
     EXPENSES_REMOVED,
     EXPENSES_UPDATED,
     INPUTS_UPDATED,
+    INCOME_UPDATED,
     ROW_ADDED,
     ROW_REMOVED,
     STATE_LOADED,

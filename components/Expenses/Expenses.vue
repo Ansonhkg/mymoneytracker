@@ -61,14 +61,6 @@ export default {
             var income = total / this.income * 100
             return this.$toFixed(income, 2)
         }
-        // bgColor(){
-        //     if(this.list.type === 'expenses'){
-        //         return {'bg-blue' : (this.list.type === 'expenses')}
-        //     }
-        //     if(this.list.type === 'saving'){
-        //         return {'bg-orange' : (this.list.type === 'saving')}
-        //     }
-        // }
     },
     methods:{
         save(){

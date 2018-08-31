@@ -75,8 +75,11 @@ export default {
   
   props: ["inputs", "expenses"],
   computed: {
-    results() {
+    validatedInputs(){
       if (this.inputs.income <= 0) return 0;
+      return this.inputs
+    },
+    results() {
 
       var list = this.expenses.map(x => {
         var total = x.rows
@@ -88,7 +91,7 @@ export default {
           total: this.$toFixed(total, 2),
           weekly: this.$toFixed(total / 7, 2),
           daily: this.$toFixed(total / 30, 2),
-          occupied: this.$toFixed(total / this.inputs.income * 100, 2)
+          occupied: this.$toFixed(total / this.validatedInputs.income * 100, 2)
         };
       });
       return list;
@@ -99,7 +102,9 @@ export default {
       return totalAfterSaving
     },
     afterExpenses() {
+
       if (this.inputs.income <= 0 || this.expenses.length <= 0) return 0;
+      console.log(this.expenses)
       var total = this.expenses
         .map(x => x.rows)
         .reduce((acc, val) => acc.concat(val))
